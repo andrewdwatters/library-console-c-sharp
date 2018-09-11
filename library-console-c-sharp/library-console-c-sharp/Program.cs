@@ -7,7 +7,7 @@ namespace library_console_c_sharp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("ITS WORKING");
+            Console.WriteLine("Welcome to the Library Console App C# Edition!");
             Test();
 
         }
@@ -15,7 +15,8 @@ namespace library_console_c_sharp
         static void Test(){
             Library.AddBook(new Book("Spot", "Jane", 200));
             Library.AddBooks(new List<Book> {new Book("Spot", "Jane", 200), new Book("Harry Potter", "JK", 300), new Book("It", "Stephen King", 150) });
-            Console.WriteLine(Library.GetAuthors());
+            Library.ShowBookShelf();
+
         }
     }
 

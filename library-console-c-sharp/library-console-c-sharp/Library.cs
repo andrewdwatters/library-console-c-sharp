@@ -4,12 +4,13 @@ using System.Linq;
 
 namespace library_console_c_sharp
 {
-    public static class Library
+    public static class Library //Static will treat this class like a singleton and I will not have to create any instance objects of the class Library
+    //All methods on Library are also static that way I can call the methods using the name of the class Library.GetRandomAuthor() for example
     {
-        public static List<Book> _bookShelf = new List<Book>();
+        public static List<Book> _bookShelf = new List<Book>(); //Here I immediately initialize my list to avoid null reference errors
 
         public static bool AddBook(Book book){
-            foreach (var item in Library._bookShelf)
+            foreach (var item in Library._bookShelf) 
             {
                 if (item._title == book._title)
                 {
@@ -76,15 +77,10 @@ namespace library_console_c_sharp
             return tempList;
         }
 
-        public static int AddBooks(List<Book> booksToAdd){ //fix this to call AddBook method
+        public static int AddBooks(List<Book> booksToAdd){ 
             int addCount = 0;
             for (int i = 0; i < booksToAdd.Count; i++){
-                for (int k = 0; k < Library._bookShelf.Count; k++){
-                    if(booksToAdd[i]._title == Library._bookShelf[k]._title){
-                        break;
-                    }
-                }
-                Library._bookShelf.Add(booksToAdd[i]);
+                Library.AddBook(booksToAdd[i]);
                 addCount++;
             }
             return addCount;
@@ -102,6 +98,21 @@ namespace library_console_c_sharp
         public static string GetRandomAuthorName(){
             Random rando = new Random();
             return Library._bookShelf[rando.Next(Library._bookShelf.Count)]._author;
+        }
+
+        public static void ShowBookShelf(){ //This is an extra method to nicely display all my books in the bookshelf.
+            Console.WriteLine("Here is your list of books");
+            foreach (var book in Library._bookShelf)
+            {
+                Console.WriteLine("Title: {0}, Author: {1},Pages: {2},Publish Date: {3}", book._title, book._author, book._numberOfPages, book._publishDate);
+            }
+        }
+
+        public static void ShowBookShelf(List<Book> myBooks){//Overload of ShowBookShelf method.  This method can take a List of Book class objects as a parameter to be displayed.
+            foreach (var book in myBooks)
+            {
+                Console.WriteLine("Title: {0}, Author: {1},Pages: {2},Publish Date: {3}", book._title, book._author, book._numberOfPages, book._publishDate);
+            }
         }
 
     }
